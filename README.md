@@ -29,7 +29,7 @@ Go to chromedriver (Inet) so you could download it >> https://chromedriver.stora
 
 * Download it
 * Copy it and run it
-* Add your chromedriver into your $PATH >> :/usr/local/bin/chromedriver
+* Add your chromedriver into your $PATH >> ```:/usr/local/bin/chromedriver```
 
 ## Page Object Model (POM)
 This framework was built by using the PO concept which is gonna be useful for interacting an mantaining the coding in a better way. For further reference, please do take a look at the following url > https://selenium-python.readthedocs.io/page-objects.html
