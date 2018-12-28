@@ -10,7 +10,5 @@ python_home_page.go()
 python_home_page.search_input.input_text("Jobs")
 python_home_page.go_button.click()
 
-input()
-
 # Closing the Browser
 browser.quit()
