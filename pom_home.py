@@ -1,5 +1,5 @@
 from selenium import webdriver
-from PythonProjects.Pages.python_home_page import PythonHomePage
+from Pages.python_home_page import PythonHomePage
 
 # Test Set-up
 browser = webdriver.Chrome()
