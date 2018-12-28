@@ -1,7 +1,11 @@
-# Python Automation Framework (PAF 0.1 Version)
+# Python Automation Framework 
 
-The intent of this Repository is just to Learn and start creating a Brand New Python Automation Framework with Python. A cool one actually. 
-That's it! 
+The intent of this Repository is just to start creating a Brand New Python Automation Framework. A cool one actually. 
+
+Because of that, the **PAF 0.1 Version** was launched. Despite the fact there's quite a long Path to walk thru, there's the first Quick Off.
+
+I really hope you could enjoy it.
+Cheers! 
 
 ## Set Up
 ### Python Version
