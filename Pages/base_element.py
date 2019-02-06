@@ -19,7 +19,7 @@ class BaseElement(object):
         self.web_element = element
         return None
 
-    # We send the keys we tyte to the web_element
+    # We send the keys we tye up to the web_element
     def input_text(self, txt):
         self.web_element.send_keys(txt)
         return None
