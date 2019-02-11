@@ -35,11 +35,24 @@ Go to chromedriver (Inet) so you could download it >> https://chromedriver.stora
 * Copy it and run it
 * Add your chromedriver into your $PATH >> ```:/usr/local/bin/chromedriver```
 
+#### Installing The Pytest Framework
+*pytest* is a framework that makes building simple and scalable tests easy.
+In order tu install it, run the following command in your command line:
+
+```
+pip install -U pytest
+```
+Check that you installed the correct version:
+
+```
+pytest --version
+```
+For further information, please refer to >> https://docs.pytest.org/
 ## Page Object Model (POM)
-This framework was built by using the PO concept which is gonna be useful for interacting an mantaining the coding in a better way. For further reference, please do take a look at the following url > https://selenium-python.readthedocs.io/page-objects.html
+This framework was built by using the PO concept which is gonna be useful for interacting an mantaining the coding in a better way. For further reference, please do take a look at the following url >> https://selenium-python.readthedocs.io/page-objects.html
 
 ## Explicit Waits
-This framework was also build by using the Explicit Webdriver Concept which could be investigated further by following this url > https://www.seleniumhq.org/docs/04_webdriver_advanced.jsp
+    This framework was also build by using the Explicit Webdriver Concept which could be investigated further by following this url > https://www.seleniumhq.org/docs/04_webdriver_advanced.jsp
 Here you have an example provided for the Python coding
 
 ```
