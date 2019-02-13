@@ -35,7 +35,7 @@ Go to chromedriver (Inet) so you could download it >> https://chromedriver.stora
 * Copy it and run it
 * Add your chromedriver into your $PATH >> ```:/usr/local/bin/chromedriver```
 
-#### Installing The Pytest Framework
+#### Installing Pytest Framework
 *pytest* is a framework that makes building simple and scalable tests easy.
 In order tu install it, run the following command in your command line:
 
@@ -47,7 +47,57 @@ Check that you installed the correct version:
 ```
 pytest --version
 ```
-For further information, please refer to >> https://docs.pytest.org/
+#### Installing Allure Framework
+*allure* is a framework to generate reports. In order to generate it, the Report throws a .xml file which should be invoked in order to generate the .html report.
+In order to installing it: 
+```
+brew install allure
+```
+The **PAF 0.1 Version** is running Pytest. So that, you could install it by using the following command:
+```
+pip install allure-pytest
+```
+
+##### First Step
+First of all, the .xml file should be created. As follows
+
+```
+pytest alluredir "Your_Path"
+```
+
+##### Second Step
+Once the .xml files are generated, you should go to **Your_Path** and generate the .html file with all their dependencies. As follows:
+
+```
+alluredir generate "Path_of_The_XML_files"
+```
+**Recommendation:** Generate your reports in the path where the .xml files are
+For further information, please refer to >> https://docs.qameta.io/allure/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Page Object Model (POM)
 This framework was built by using the PO concept which is gonna be useful for interacting an mantaining the coding in a better way. For further reference, please do take a look at the following url >> https://selenium-python.readthedocs.io/page-objects.html
 
