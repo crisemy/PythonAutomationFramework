@@ -23,6 +23,9 @@ def environment_setup():
     # The Yield command establishes that whatever you write it'll be executed AFTER your Test.
     # In this case, after the test_search_option Function.
     yield
+
+    # 09: Taking screenshots and Saving them in a specific folder
+    browser.get_screenshot_as_file("/Users/cristiannadj/Desktop/crisArch/pythonCourse/IntelliJIDE/ElegantBrowserAutomation/pythonSite/PythonProjects/screenshot/FinalScreen.png")
     # Closing the Browser
     browser.quit()
 
