@@ -1,7 +1,6 @@
 from selenium import webdriver
-
-from PythonProjects.pages import python_home_page
 from PythonProjects.pages.python_home_page import PythonHomePage
+from PythonProjects.config_options import ConfigOptions
 
 import pytest
 
@@ -14,8 +13,17 @@ def environment_setup():
 
     # Test Set-up
     browser = webdriver.Chrome()
+
     python_home_page = PythonHomePage(driver=browser)
     python_home_page.go()
+
+
+    '''
+    browser = ConfigOptions.web_d
+    print(browser)
+    config_options = ConfigOptions(driver=browser)
+    config_options.go()
+    '''
 
     # Maximize browser
     browser.maximize_window()

@@ -1,9 +1,13 @@
 from selenium.webdriver.common.by import By
+
+from PythonProjects.config_options import ConfigOptions
+
 from .base_element import BaseElement
 from .base_page import BasePage
 
-class PythonHomePage(BasePage):
-    url = 'https://www.python.org/'
+
+class PythonHomePage(BasePage, ConfigOptions):
+    url = ConfigOptions.base_url
 
     @property
     def search_input(self):

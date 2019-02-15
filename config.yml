@@ -1,0 +1,4 @@
+# Creating a Conf File to grab different paths
+
+url: python.org
+webdriver: webdriver.Chrome()
