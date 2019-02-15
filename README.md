@@ -47,8 +47,11 @@ Check that you installed the correct version:
 ```
 pytest --version
 ```
+**Important: *pytest* deals with the fact of correctly using relative/absolute Paths. For further details, please refer
+to the following >> https://docs.pytest.org/en/3.6.0/writing_plugins.html#conftest-py-plugins
 #### Installing Allure Framework
-*allure* is a framework to generate reports. In order to generate it, the Report throws a .xml file which should be invoked in order to generate the .html report.
+*allure* is a framework to generate reports. In order to generate it, the Report throws a .xml file which should be 
+invoked in order to generate the .html report.
 In order to installing it: 
 ```
 brew install allure
