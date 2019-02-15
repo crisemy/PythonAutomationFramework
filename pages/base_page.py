@@ -1,3 +1,4 @@
+
 class BasePage(object):
     url = None
 
