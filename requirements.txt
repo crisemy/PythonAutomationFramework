@@ -1,4 +1,6 @@
-# Pinned 2026-10-09 — verified with Python 3.12.7, Selenium Manager (no manual chromedriver)
+# Pinned 2026-10-09 — verified green with Python 3.12.7 (repo .venv/)
+# Selenium Manager included (no manual chromedriver). Allure CLI is NOT a pip
+# package — install separately via `scoop install allure` to view reports.
 selenium==4.51.0
 pytest==9.1.1
 PyYAML==6.0.3

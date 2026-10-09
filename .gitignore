@@ -13,5 +13,4 @@ screenshot/*.png
 .pytest_cache/
 allure-results/
 allure-report/
-reports/*.xml
-reports/*.html
+reports/*
