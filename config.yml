@@ -1,4 +1,5 @@
-# Creating a Conf File to grab different paths
-
+# Config for PythonAutomationFramework (Selenium 4 / 2026)
 url: python.org
-webdriver: webdriver.Chrome()
+browser: chrome
+headless: false
+timeout: 10

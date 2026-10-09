@@ -1,113 +1,83 @@
-# Python Automation Framework 
+# Python Automation Framework
 
-The intent of this Repository is just to start creating a Brand New Python Automation Framework. 
+Original 2023 project by crisemy — first self-made Selenium + Python POM framework.
+Modernized 2026-10-09 to **Selenium 4.51.0** and proven green against live python.org.
 
-Because of that, the **PAF 0.1 Version** was launched. Despite the fact there's quite a long Path to walk thru, there's the first quick off though.
+## What changed in 2026 (from 2023 PAF 0.1)
 
-I really hope you could enjoy it.
-Cheers!
+| Area | 2023 | 2026 |
 
-## Set Up
-### Python Version
-By the time this Framework was created, I started it by using the **Python 3.7** Version. However, you might use any 3.x version you'd prefer. I do recommend not to use 2.x versions though. You can also use the Ven capability.
+|------|------|------|
+| Selenium | 3.x style, manual `chromedriver 2.45` in `$PATH` | **4.51.0** via Selenium Manager (auto driver, no manual install). `webdriver.Chrome(service=Service(), options=...)` in `test_pom_home.py` |
+| Python | 3.7 | **3.12.7**, isolated `.venv/` |
+| Deps | bare `pip install selenium/pytest/allure-pytest` | pinned `requirements.txt`: `selenium==4.51.0`, `pytest==9.1.1`, `PyYAML==6.0.3`, `allure-pytest==2.16.2` |
+| Imports | `from PythonProjects.pages...` (broken, no such package) | `from pages...` / `from config_options...` |
+| Config | `yaml.load()` (crashes on PyYAML 6), `open('config.yml')` relative, dead `webdriver: webdriver.Chrome()` string | `yaml.safe_load()`, `Path(__file__).parent / "config.yml"`, `config.yml` now `url / browser / headless / timeout` |
+| Waits | 5 s, `EC.element_to_be_clickable(locator=...)` (TypeError on Selenium 4), `5). until` typo, `find()` returns `None` | 10 s (configurable), positional `EC.element_to_be_clickable(self.locator)`, `find()` returns element |
+| Test flow | `global python_home_page`, bare `yield`, hardcoded macOS screenshot path, immediate `h2` assert (races homepage `Get Started`) | fixture returns page object, repo-relative `screenshot/FinalScreen.png`, `WebDriverWait(url_contains("/search"))` after each nav, new `conftest.py --headless` flag + `HEADLESS=1` env |
+| Locators | 2023 python.org | re-validated 2026-10-09 live: `input#id-search-field`, `#submit`, `.python-logo`, `h2` == `Search Python.org` — all still valid |
+| Hygiene | `.gitignore` typo `screenshot/.png`, committed png | fixed to `screenshot/*.png`, added `.venv/`, `.pytest_cache/`, `allure-results/` |
 
-#### Installing Python
-As I mentioned before, you must get a 3.x Python Version installed (python --version to check whether a Python V was installed or not)
+New files: `requirements.txt`, `conftest.py`, `CONTEXT.md`, `.venv/` (untracked).
 
-#### Installing Selenium
-As I mentioned before, you must get a 3.x Python Version installed. All the examples are taking into consideration that you already have PIP installed (```pip --version``` to check it)
+## Setup (2026)
 
+```powershell
+# from repo root
+python -m venv .venvpython -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -U pip
+.\.venv\Scripts\pip.exe install -r requirements.txt
 ```
-pip install selenium
-```
-#### Installing the ChromeDriver
-Now we'd need to know if our chrome driver is installed
-```python``` (The python prompt will be opened up)
-```
->>> from selenium import webdriver
->>> browser = webdriver.Chrome()
-```
-**Note**: It will throw an exception if the ChromeDriver is not installed in your Path
 
-Go to chromedriver (Inet) so you could download it >> https://chromedriver.storage.googleapis.com/index.html?path=2.45/
+## Run
 
-* Download it
-* Copy it and run it
-* Add your chromedriver into your $PATH >> ```:/usr/local/bin/chromedriver```
+```powershell
+# headed
+.\.venv\Scripts\python.exe -m pytest test_pom_home.py -v
 
-#### Installing Pytest Framework
-*pytest* is a framework that makes building simple and scalable tests easy.
-In order tu install it, run the following command in your command line:
+# headless (CI)
+.\.venv\Scripts\python.exe -m pytest test_pom_home.py -v --headless
+# or: $env:HEADLESS=1; pytest -v
+```
 
-```
-pip install -U pytest
-```
-Check that you installed the correct version:
+Result 2026-10-09: **2 passed** (`test_search_option` E2E + `test_config_loads_base_url`), screenshot refreshed at `screenshot/FinalScreen.png`.
 
-```
-pytest --version
-```
-**Important: *pytest* deals with the fact of correctly using relative/absolute Paths. For further details, please refer
-to the following >> https://docs.pytest.org/en/3.6.0/writing_plugins.html#conftest-py-plugins
+`config.yml` options:
 
-#### Installing Allure Framework
-*allure* is a framework to generate reports. Report throws a .xml file which should be 
-invoked in order to generate the .html report.
-In order to installing it: 
+```yaml
+url: python.org
+browser: chrome
+headless: false
+timeout: 10
 ```
-brew install allure
+
+## Original 2023 notes (kept for history)
+
+### Page Object Model (POM)
+Built with the PO concept for interacting/maintaining code. Ref: https://selenium-python.readthedocs.io/page-objects.html
+- `pages/base_page.py` — `go()` navigates
+- `pages/base_element.py` — wraps explicit waits (`find`/`input_text`/`click`/`text`)
+- `pages/python_home_page.py` — 4 locators: search input, GO button, logo, assert title
+- `test_pom_home.py` — search "Jobs" → assert `h2 == 'Search Python.org'` → logo → empty search → assert again
+
+### Explicit Waits
+Uses `WebDriverWait` + `expected_conditions`. Ref: https://www.selenium.dev/documentation/webdriver/waits/
+
+```python
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+element = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.ID, "myDynamicElement")))
 ```
-The **PAF 0.1 Version** is running Pytest. So that, you could install it by using the following command:
+
+### Screenshot
+Every run saves `screenshot/FinalScreen.png` via `driver.get_screenshot_as_file(...)` (now repo-relative, was a hardcoded macOS path in 2023).
+
+### Allure (docs only, no live integration yet)
 ```
 pip install allure-pytest
+pytest --alluredir=reports/
+allure generate reports/ -o allure-report --clean
 ```
-
-**First Step**
-
-First of all, the .xml file should be created. As follows:
-
-```
-pytest alluredir "Your_Path"
-```
-
-**Second Step**
-
-Once .xml files are generated, you should go to **Your_Path** and generate the .html file with all their dependencies. As follows:
-
-```
-alluredir generate "Path_of_The_XML_files"
-```
-**Recommendation:** Generate your reports in the path where the .xml files are
-For further information, please refer to >> https://docs.qameta.io/allure/
-
-## Page Object Model (POM)
-This framework was built by using the PO concept which is going to be useful for interacting and maintaining the coding in a better way. For further reference, please do take a look at the following url >> https://selenium-python.readthedocs.io/page-objects.html
-
-## Explicit Waits
-    This framework was also build by using the Explicit Webdriver Concept which could be investigated further by following this url > https://www.seleniumhq.org/docs/04_webdriver_advanced.jsp
-Here you have an example provided for the Python coding
-
-```
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait # available since 2.4.0
-from selenium.webdriver.support import expected_conditions as EC # available since 2.26.0
-
-ff = webdriver.Firefox()
-ff.get("http://somedomain/url_that_delays_loading")
-try:
-    element = WebDriverWait(ff, 10).until(EC.presence_of_element_located((By.ID, "myDynamicElement")))
-finally:
-    ff.quit()
-```
-
-## Screenshot
-
-The intent is to get a Screenshot of every Test Case. For that, we would need to get a Module in which our .png files are going to be downloaded.
-
-```
-driver.get_screenshot_as_file("Your_path/TC01.png")
-```
-
-
-
+Ref: https://docs.qameta.io/allure/

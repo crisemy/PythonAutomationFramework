@@ -1,0 +1,5 @@
+# Pinned 2026-10-09 — verified with Python 3.12.7, Selenium Manager (no manual chromedriver)
+selenium==4.51.0
+pytest==9.1.1
+PyYAML==6.0.3
+allure-pytest==2.16.2

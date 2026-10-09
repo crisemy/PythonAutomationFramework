@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
 
-from PythonProjects.config_options import ConfigOptions
+from config_options import ConfigOptions
 
 from .base_element import BaseElement
 from .base_page import BasePage
